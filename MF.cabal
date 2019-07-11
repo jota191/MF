@@ -58,7 +58,8 @@ library
 
   -- Other library packages from which modules are imported.
   build-depends:       base >=4.11 && <4.12,
-                       AspectAG >=0.5 &&<0.6
+                       AspectAG >=0.5 &&<0.6,
+                       simple-smt >= 0.91
 
   -- Directories containing source files.
   hs-source-dirs:      src
