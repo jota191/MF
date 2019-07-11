@@ -38,7 +38,7 @@ import Data.Proxy
 -}
 
 $(attLabel "seval" ''Double)
-$(attLabel "iarg" ''Double)
+$(attLabel "iarg" ''Rational)
 
 asp_iarg
   =  traceAspect (Proxy @ ( 'Text "inhArg")) $
@@ -51,9 +51,9 @@ asp_iarg
 
 asp_seval
   = traceAspect (Proxy @ ( 'Text "synEval")) $
-     (syn seval p_Arg      $ at lhs iarg)
- .+: (syn seval p_LitN     $ fromInteger <$> ter ch_litN)
- .+: (syn seval p_LitR     $ ter ch_litR)
+     (syn seval p_Arg      $ fromRational <$> at lhs iarg)
+ .+: (syn seval p_LitN     $ fromInteger  <$> ter ch_litN)
+ .+: (syn seval p_LitR     $ fromRational <$> ter ch_litR)
  .+: (syn seval p_BinOpApp $
      do l  <- at ch_l seval
         r  <- at ch_r seval

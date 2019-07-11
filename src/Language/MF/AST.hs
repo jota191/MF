@@ -31,7 +31,7 @@ $(addNont "Func")
 $(addProd "Func" ''Nt_Func [("body", NonTer ''Nt_Exp)])
 
 $(addProd "Arg" ''Nt_Exp [])
-$(addProd "LitR" ''Nt_Exp [("litR", Ter ''Double)])
+$(addProd "LitR" ''Nt_Exp [("litR", Ter ''Rational)])
 $(addProd "LitN" ''Nt_Exp [("litN", Ter ''Integer)])
 $(addProd "BinOpApp" ''Nt_Exp [("l",    NonTer ''Nt_Exp),
                               ("binop", Ter ''BinOp),
