@@ -15,7 +15,7 @@
 {-# LANGUAGE TypeApplications #-}
 
 
-module AST where
+module Language.MF.AST where
 
 import Language.Grammars.AspectAG
 import Language.Grammars.AspectAG.TH
@@ -26,18 +26,23 @@ data BinOp = Plus | Div | Times deriving (Eq, Read, Show)
 type Name = String
 
 $(addNont "Exp")
+$(addNont "Func")
 
-$(addProd "LitR" ''Nt_Exp [("litR", Ter ''Float)])
-$(addProd "LitN" ''Nt_Exp [("litN", Ter ''Int)])
+$(addProd "Func" ''Nt_Func [("body", NonTer ''Nt_Exp)])
+
+$(addProd "Arg" ''Nt_Exp [])
+$(addProd "LitR" ''Nt_Exp [("litR", Ter ''Double)])
+$(addProd "LitN" ''Nt_Exp [("litN", Ter ''Integer)])
 $(addProd "BinOpApp" ''Nt_Exp [("l",    NonTer ''Nt_Exp),
                               ("binop", Ter ''BinOp),
                               ("r",     NonTer ''Nt_Exp)])
 $(addProd "UnOpApp" ''Nt_Exp [("uop", Ter ''UnOp),
                               ("e",   NonTer ''Nt_Exp)])
-$(addProd "App" ''Nt_Exp [("func", NonTer ''Nt_Exp),
-                          ("arg" , NonTer ''Nt_Exp)])
-$(addProd "Abs" ''Nt_Exp [("var"  , Ter ''Name),
-                          ("body" , NonTer ''Nt_Exp)])
 
-$(closeNT ''Nt_Exp)
-$(mkSemFunc ''Nt_Exp)
+$(closeNTs [''Nt_Exp, ''Nt_Func])
+$(mkSemFuncs [''Nt_Exp, ''Nt_Func])
+
+
+e1 = Func $ BinOpApp (LitN 1) Div (BinOpApp (LitN 12) Plus (UnOpApp Log (Arg)))
+e2 = Func $ BinOpApp (LitN 24
+                     ) Div (BinOpApp (LitN 12) Plus (UnOpApp Log (Arg)))
