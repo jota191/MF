@@ -1,6 +1,6 @@
 module Cubic where
 
-import SimpleSMT
+import Math.SimpleSMT
 import Prelude hiding (or, and, not)
 cube x = x `mul` x `mul` x
 

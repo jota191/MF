@@ -1,6 +1,6 @@
 module Example where
 
-import SimpleSMT
+import Math.SimpleSMT
 
 main :: IO ()
 main =
