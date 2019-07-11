@@ -14,12 +14,13 @@
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE TypeApplications #-}
 
-module Language.Eval where
+module Language.MF.Eval where
 
 import Language.MF.AST
 import Language.Grammars.AspectAG
 import Language.Grammars.AspectAG.TH
 
+-- for traceAspect
 import GHC.TypeLits (ErrorMessage(Text))
 import Data.Proxy
 
