@@ -95,7 +95,23 @@ domCheck dom f@(Func e)
          Sat   -> return $ NOK ""
          _     -> return Undet
 
+
 ok1 = domCheck (Atom "x" `gt` real 0) e3
 ok2 = domCheck (Atom "x" `lt` real (-1/12)) e3
 nok1 = domCheck (Atom "x" `leq` real (-1/12)) e3
 nok2 = domCheck (Atom "x" `lt` real 0) e3
+
+
+domCheckDReal :: SExpr -> Func -> IO CheckRes
+domCheckDReal dom f@(Func e)
+  = do l <- newLogger 0
+       s <- newSolver "dReal" ["--in", "--verbose"] (Just l)
+       setLogic s "QF_NRA"
+       x <- declare s "x" tReal
+       let inferred = inferDomPred f
+       assert s (not inferred `and` dom)
+       res <- check s
+       case res of
+         Unsat -> return OK
+         Sat   -> return $ NOK ""
+         _     -> return Undet
