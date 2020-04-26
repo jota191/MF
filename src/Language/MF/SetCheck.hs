@@ -23,7 +23,7 @@ import Language.MF.Exp2SMT
 import Language.Grammars.AspectAG
 import Language.Grammars.AspectAG.TH
 
-import Math.SimpleSMT
+import SimpleSMT
 import Language.MF.SimpleSMTUtils
 
 -- for traceAspect

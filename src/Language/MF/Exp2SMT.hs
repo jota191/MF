@@ -19,7 +19,7 @@ module Language.MF.Exp2SMT where
 import Language.MF.AST
 import Language.Grammars.AspectAG
 import Language.Grammars.AspectAG.TH
-import Math.SimpleSMT
+import SimpleSMT
 
 -- requred by traceaspect
 import GHC.TypeLits (ErrorMessage(Text))
@@ -65,14 +65,14 @@ mkSmtUn op e =
     Log  -> error "log not implemented in QF_NRA"
     Expo -> error "exp not implemented in QF_NRA"
     Opp  -> neg e
-    Inv  -> Math.SimpleSMT.realDiv (real 1) $ e
+    Inv  -> SimpleSMT.realDiv (real 1) $ e
 
 mkSmtBin :: BinOp -> SExpr -> SExpr -> SExpr
 mkSmtBin op l r =
   case op of
     Plus  -> add l r
     Times -> mul l r
-    Div   -> Math.SimpleSMT.realDiv l r
+    Div   -> SimpleSMT.realDiv l r
 
 
 exp2smt :: Exp -> SExpr
